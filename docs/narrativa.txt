@@ -1,0 +1,126 @@
+Una aplicación para jugar juegos de mesa 
+
+La idea sería que cada usuario cargue los juegos que tenga. 
+
+Que se puedan armar grupos de usuarios 
+
+Que se puedan cargar partidas (cualquiera del grupo), con el puntaje de cada uno, quien fue el ganador/es 
+
+Mostrar estadísticas del grupo 
+
+Comentarios en las partidas 
+
+Elección de juego al azar (según nro de jugadores y tiempo disponible para la partida) 
+
+Elección de juego en función de: tiempo transcurrido desde su última partida, puntuación de los usuarios, noción de rejugabilidad por parte de los miembros del grupo 
+
+Hay un admin del grupo que puede agregar/eliminar miembros. Puede haber más de uno 
+
+ 
+
+Requerimientos: 
+
+- Cada usuario debería poder gestionar sus juegos de mesa. 
+
+- Cada usuario podría formar un grupo (o muchos grupos) de juegos con otros usuarios y gestionarlo. Las acciones de baja y alta de usuarios al grupo son potestad de los administradores del grupo. 
+- El usuario creador sería el administrador, teniendo la posibilidad de nombrar más personas para que lo sean. (para promocion, para regularidad devolver un link para unirse al grupo) 
+
+- Cada usuario puede cargar partidas para un grupo determinado (ya sea un grupo al que pertenezca o un grupo creado en el momento (dar la posibilidad de formar un grupo de juegos obteniendo el resultado del punto anterior, pero que esto no pase por defecto). (invitado promocion) 
+
+- Cada usuario puede ver las partidas en las que jugó y comentarlas, generando notificaciones para el resto de los usuarios. (comentarios y notificaciones promocion)
+
+
+Para regularidad:
+Backend
+- abm personas
+- abm grupos
+- agregar miembros al grupo y aceptarlos
+- abm de juegos
+- cargar una partida
+- listar las partidas de un jugador
+
+frontend:
+- listar grupos y aceptar solicitudes pendientes
+
+
+Endpoints regularidad
+ABM usuarios
+GET 		/apt/player/
+GET 		/api/player/:id
+POST    	/api/player/
+*PUT 		/api/player/:id
+*DELETE 		/api/player/:id
+
+ABM Grupos
+GET 		/api/groups/:id
+POST 		/api/groups/
+*PUT 		/api/groups/:id
+*DELETE 		/api/groups/:id
+
+Obtener grupos a los cuales pertenezco
+GET 		/api/player/:id/groups
+
+Obtener grupos de los cuales soy admin
+GET 		/api/player/:id/groups?admin=true (buena práctica para la cual generar este endpoint?)
+
+Aceptar un miembro
+GET 	/api/groups/:id/members  listar
+GET 	/api/groups/:id/members?status=pending (aceptar un miembro, cual sería la buena práctica para definir el endpoint??)
+POST 	/api/groups/:idgroup/members/
+
+* ver partidas y juegos
+Partidas de un usuario
+GET 		/api/player/:id/plays/
+
+Abm de juegos
+GET 		/api/games/:id
+POST 		/api/games/
+PUT 		/api/games/
+DELETE 		/api/games/:id
+
+Agregar una partida
+POST 		/api/plays/
+
+Dudas:
+- ¿Qué tengo que tener en cuenta para usar Angular después y no mandarme ninguna ahora?
+- Los endpoints polémicos, criterios para definirlos.
+
+
+Las entidades que vamos a tener son
+
+jugadores: {
+	username: "damian",
+	name: "Damián Ciancio",
+	juegos: Juegos()
+}
+
+juegos {
+	name: "Russian Railroads",
+	min_players: 2,
+	max_players: 4, 
+	duration: "120",
+	tipo: "Euro"
+}
+
+grupos {
+	name: "miturno",
+	members: [
+		Players()
+	],
+	admins: [
+		_id_players
+	]
+}
+
+partidas: {
+	name: "",
+	date: "2018-09-19",
+	winner: (id_player),
+	players: [
+		Players(),
+		"juan"
+	],
+	duration: "142",
+	group: (id_group)
+}
+
