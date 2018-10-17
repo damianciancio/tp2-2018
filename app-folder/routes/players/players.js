@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
     })
     .catch(next);
 });
+
 router.get('/:id/groups', (req, res, next) => {
     let idUser = req.params.id;
     let admin = req.query.admin;
