@@ -126,5 +126,26 @@ router.post('/:id/members', (req, res, next) => {
 });
 
 
+router.put('/:id/members/:idmember', (req, res, next) => {
+    var groupId = req.params.id;
+    var idmember = req.params.idmember;
+    Group.findById(groupId)
+    .then(group => {
+        var filteredMembers = group.members.filter((member)=>{
+            if(member._id.equals(idmember)) {
+                return true;
+            }
+        });
+
+        if(filteredMembers.length == 1){
+            member = filteredMembers[0];
+            member.status = 'accepted';
+            group.save();
+        }
+    });
+
+    res.send(true);    
+});
+
 
 module.exports = router;
