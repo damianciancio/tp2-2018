@@ -6,7 +6,8 @@ var gameSchema = new mongoose.Schema({
     duration: {type: Number, required: true},
     winner: { type: mongoose.Schema.Types.ObjectId, ref: 'player'},
     players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'player' }],
-    group: { type: mongoose.Schema.Types.ObjectId, ref: 'group' }
+    group: { type: mongoose.Schema.Types.ObjectId, ref: 'group' },
+    game: { type: mongoose.Schema.Types.ObjectId, ref: 'game' },
 },{timestamps:true});
 
-mongoose.model('match', gameSchema);
+mongoose.model('play', gameSchema);

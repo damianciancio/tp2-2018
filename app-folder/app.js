@@ -16,9 +16,9 @@ app.use(methodOverride());
 mongoose.connect('mongodb://localhost/juegosdemesa');
 require('./models/players.js');
 require('./models/groups.js');
-require('./models/matches.js');
-require('./models/players.js');
+require('./models/plays.js');
 require('./models/games.js');
+require('./models/players.js');
 
 app.use(require('./routes'));
 

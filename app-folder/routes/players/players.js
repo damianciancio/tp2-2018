@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 var Player = mongoose.model('player');
 var Group = mongoose.model('group');
+var Play = mongoose.model('play');
 
 var ObjectId = mongoose.Types.ObjectId;
 
@@ -56,6 +57,28 @@ router.post('/', (req, res, next) => {
     let player = new Player(playerObj);
     player.save();
     res.send(player);    
+});
+
+
+
+router.get('/:id/plays', (req, res, next) => {
+    let id = req.params.id;
+    Play.find({'players': ObjectId(id)})
+    .populate('game')
+    .then(plays =>{
+        if(!plays){ return res.sendStatus(401); }
+        return res.json({'plays': plays})
+    })
+    .catch(next);
+});
+
+router.post('/:id/games', (req, res, next) => {
+    let id = req.params.id;
+    let game = req.body.game;
+    Play.findById(id)
+    .then((player) => {
+        player.games.push(game);
+    });
 });
 
 module.exports = router;
