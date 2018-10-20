@@ -1,0 +1,10 @@
+{
+  "localhost:3000o": {
+    "target": "localhost:3000",
+    "secure": true,
+    "pathRewrite": {
+    "^/posts": ""
+  },
+    "changeOrigin": true
+  }
+}

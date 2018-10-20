@@ -1,0 +1,13 @@
+{
+  "/backend/*": {
+    "target": {
+      "host": "localhost",
+      "protocol": "http:",
+      "port": 3000
+    },
+    "pathRewrite": {"^/backend" : ""},
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  }
+}

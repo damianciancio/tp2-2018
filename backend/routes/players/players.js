@@ -19,15 +19,26 @@ router.get('/:id/groups', (req, res, next) => {
     let idUser = req.params.id;
     let admin = req.query.admin;
 
-    let queryObject = { "members": idUser };
-
-    if(admin){
-        queryObject = { "admins": idUser };
-    }
+    let queryObject = { "members.player": idUser };
 
     Group.find(queryObject)
+    .populate('player')
     .then(groups =>{
         if(!groups){ return res.sendStatus(401); }
+        if(admin) {
+            groups = groups.filter((group) => {
+                let member = group.members.find(member => {
+                    if(member.player._id == idUser) {
+                        return true;
+                    }
+                });
+
+                if(member.is_admin) {
+                    return true;
+                }
+                return false;
+            });
+        }
         return res.json({'groups': groups})
     })
     .catch(next);

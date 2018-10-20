@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
     let id = req.params.id;
     Group.findById(id)
-    .populate('players')
+    .populate('members.player')
     .then(group =>{
         if(!group){ return res.sendStatus(401); }
         return res.json({'group': group})
@@ -52,15 +52,21 @@ router.post('/', (req, res, next) => {
 
 router.get('/:id/members', (req, res, next) => {
     let status = req.query.status;
-    console.log(status);
+
     let id = req.params.id;
     Group.findById(id)
-    .populate('player')
+    .populate('members.player')
     .then(group =>{
         if(!group){ 
             return res.sendStatus(404); 
         }
-
+        let members = group.members;
+        if(status) {
+            members = group.members.filter(member => {
+                if(member.status == status) return true;else return false; 
+            })
+        }
+        return res.json({'data': members});
         let members_ids = group.members.map(memberElement => {
             return memberElement.player;
         });

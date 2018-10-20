@@ -5,7 +5,22 @@ var cors           = require('cors');
 var methodOverride = require('method-override');
 
 var app            = express();
-app.use(cors());
+var originsWitheList = [
+  "*"
+]
+
+var corsOptions = {
+  origin: 
+    function(origin, callback){
+      if(typeof origin != 'undefined'){
+        console.log(origin);
+      }
+      var isWitheListed = originsWitheList.indexOf(origin) !== -1;
+      callback(null, isWitheListed);
+    },
+    credentials: true
+}
+app.use(cors(corsOptions));
 
 const port = 3000;
 
