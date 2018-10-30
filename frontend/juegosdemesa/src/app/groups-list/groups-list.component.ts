@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendServiceService } from '../../services/backendService/backend-service.service';
-
+import {GroupPreviewComponent} from './../group-preview/group-preview.component';
 @Component({
   selector: 'groups-list',
   templateUrl: './groups-list.component.html',
@@ -9,11 +9,13 @@ import { BackendServiceService } from '../../services/backendService/backend-ser
 export class GroupsListComponent implements OnInit {
 
   constructor(private back : BackendServiceService) { }
-
+  groupList = null;
   ngOnInit() {
-    this.back.getGroupMembers("5bc7bcb1cb5742179da9f4bb")
+    var that = this;
+    this.back.getPlayerGroups(this.back.currentPlayer)
     .subscribe((data: any)=> {
       console.log(data);
+      that.groupList = data.groups;
     });
   }
 

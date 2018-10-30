@@ -135,6 +135,7 @@ router.post('/:id/members', (req, res, next) => {
 router.put('/:id/members/:idmember', (req, res, next) => {
     var groupId = req.params.id;
     var idmember = req.params.idmember;
+    var newStatus = req.body.newStatus;
     Group.findById(groupId)
     .then(group => {
         var filteredMembers = group.members.filter((member)=>{
@@ -145,7 +146,7 @@ router.put('/:id/members/:idmember', (req, res, next) => {
 
         if(filteredMembers.length == 1){
             member = filteredMembers[0];
-            member.status = 'accepted';
+            member.status = newStatus;
             group.save();
         }
     });

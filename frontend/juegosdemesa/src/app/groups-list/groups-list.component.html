@@ -1,3 +1,7 @@
 <p>
   groups-list works!
 </p>
+
+<div class="collection">
+  <app-group-preview *ngFor="let group of groupList" [group]="group"></app-group-preview>
+</div>

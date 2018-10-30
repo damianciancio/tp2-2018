@@ -6,8 +6,19 @@ import {BrowserXhr} from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { GroupsListComponent } from './groups-list/groups-list.component';
+import { GroupPreviewComponent } from './group-preview/group-preview.component';
+import { GroupDetailsComponent } from './group-details/group-details.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
+  {
+    path: 'groups/:id',
+    component: GroupDetailsComponent
+  },
+  {
+    path: 'groups',
+    component: GroupsListComponent
+  },
   {
     path: '', 
     component: AppComponent
@@ -17,7 +28,10 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    GroupsListComponent
+    GroupsListComponent,
+    GroupPreviewComponent,
+    GroupDetailsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

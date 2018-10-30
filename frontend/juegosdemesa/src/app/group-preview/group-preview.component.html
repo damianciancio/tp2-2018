@@ -1,0 +1,4 @@
+<a class="collection-item" routerLink="/groups/{{group._id}}">
+    {{ this.group.name }}
+    <span *ngIf="this.back.isCurrentPlayerAdmin(this.group)" class="badge">adm</span>
+</a>

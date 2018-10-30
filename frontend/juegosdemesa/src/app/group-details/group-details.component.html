@@ -1,0 +1,11 @@
+<p>
+  group-details works!
+</p>
+<div *ngIf="group">
+    {{group._id}}
+
+  <ul  *ngFor="let member of group.members">
+    {{ member.player.name }}
+    <a *ngIf="member.status == 'pending'" (click)="acceptMember(member)" class="waves-effect waves-light btn">Aceptar</a>
+  </ul>
+</div>
