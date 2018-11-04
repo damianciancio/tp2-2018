@@ -3,7 +3,7 @@ var mongoose    = require('mongoose');
 var bodyParser     = require('body-parser');
 var cors           = require('cors');
 var methodOverride = require('method-override');
-
+var passport = require('passport');
 var app            = express();
 var originsWitheList = [
   "*"
@@ -34,6 +34,9 @@ require('./models/groups.js');
 require('./models/plays.js');
 require('./models/games.js');
 require('./models/players.js');
+require('./config/passport');
+
+app.use(passport.initialize());
 
 app.use(require('./routes'));
 

@@ -92,4 +92,15 @@ router.post('/:id/games', (req, res, next) => {
     });
 });
 
+router.post('/setpasswords', (req, res, next) => {
+    Player.find({})
+    .then((players) => {
+        players.forEach(function(player){
+            player.setPassword(player.username);
+            player.save();
+        });
+    })
+});
+
+
 module.exports = router;
