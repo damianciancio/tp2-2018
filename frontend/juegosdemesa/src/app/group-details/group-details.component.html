@@ -1,11 +1,14 @@
-<p>
-  group-details works!
-</p>
+<h1>{{ group.name }}</h1>
 <div *ngIf="group">
-    {{group._id}}
-
-  <ul  *ngFor="let member of group.members">
-    {{ member.player.name }}
-    <a *ngIf="member.status == 'pending'" (click)="acceptMember(member)" class="waves-effect waves-light btn">Aceptar</a>
-  </ul>
+    <ul class="collection with-header">
+        <li class="collection-header"><h4>Miembros</h4></li>
+        <li class="collection-item" *ngFor="let member of group.members">
+          <div>
+            {{ member.player.name }}
+            <span *ngIf="member.status == 'pending'"  class="new badge pending-badge" data-badge-caption>Pendiente</span>          
+            <span *ngIf="member.is_admin"  class="new badge" data-badge-caption>Administrador</span>          
+            <a style="cursor:pointer;" *ngIf="member.status == 'pending'" (click)="acceptMember(member)" class="secondary-content"><i class="material-icons">send</i></a>
+          </div>
+        </li>
+      </ul>
 </div>
