@@ -1,4 +1,4 @@
-<a class="collection-item" routerLink="/groups/{{group._id}}">
+<a routerLink="/groups/{{group._id}}">
     {{ this.group.name }}
-    <span *ngIf="this.back.isCurrentPlayerAdmin(this.group)" class="new badge" data-badge-caption="">Administrador</span>
 </a>
+<mat-icon *ngIf="this.back.isCurrentPlayerAdmin(this.group)" >verified_user</mat-icon>

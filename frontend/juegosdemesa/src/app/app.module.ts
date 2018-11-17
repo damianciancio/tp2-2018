@@ -9,6 +9,19 @@ import { GroupsListComponent } from './groups-list/groups-list.component';
 import { GroupPreviewComponent } from './group-preview/group-preview.component';
 import { GroupDetailsComponent } from './group-details/group-details.component';
 import { LoginComponent } from './login/login.component';
+import { AcceptedMembersPipe } from './pipes/accepted-members.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { 
+  MatFormFieldModule, 
+  MatButtonModule, 
+  MatDialogModule,  
+  MatListModule, 
+  MatCardModule, 
+  MatIconModule,
+  MatSidenavModule,
+  MatToolbarModule
+} from '@angular/material';
+import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
 const appRoutes: Routes = [
   {
@@ -31,14 +44,26 @@ const appRoutes: Routes = [
     GroupsListComponent,
     GroupPreviewComponent,
     GroupDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    AcceptedMembersPipe,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatListModule,
+    MatCardModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmModalComponent]
 })
 export class AppModule { }

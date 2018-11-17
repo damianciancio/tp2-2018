@@ -1,4 +1,14 @@
-<h1>Mis grupos</h1>
-<div class="collection">
-  <app-group-preview *ngFor="let group of groupList" [group]="group"></app-group-preview>
-</div>
+<div *ngIf="groupList">
+  <mat-card>
+        <mat-card-header>
+            <mat-card-title>Mis grupos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let group of groupList" >
+              <app-group-preview [group]="group"></app-group-preview>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>    
+  </div>
