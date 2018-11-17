@@ -23,6 +23,8 @@ import {
 } from '@angular/material';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
 const appRoutes: Routes = [
   {
     path: 'groups/:id',
@@ -60,7 +62,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatIconModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
