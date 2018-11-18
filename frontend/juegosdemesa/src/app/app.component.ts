@@ -3,6 +3,7 @@ import { BackendServiceService } from './../services/backendService/backend-serv
 import { GroupsListComponent } from './groups-list/groups-list.component';
 import { MatSidenav,MatSidenavContainer, MatSidenavContent, MatList, MatToolbar } from '@angular/material';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +11,18 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private back: BackendServiceService, private deviceDetector: DeviceDetectorService) {
+  constructor(private back: BackendServiceService, private deviceDetector: DeviceDetectorService, private title: Title) {
 
   }
-  title = 'app';
+
   showMenuButton = false;
   sidenavMode = "side";
   ngOnInit(){
     this.back.getOnePlayer("5bb8b484e63f55188eb7e11b").subscribe((data: any) =>{
       console.log(data);
     });
+
+    this.back.setCurrentPlayer();
 
     if(this.deviceDetector.isMobile()) {
       this.sidenavMode = "over";

@@ -13,6 +13,10 @@ export class BackendServiceService {
   player = null;
 
   ngOnInit(){
+    
+  }
+  
+  setCurrentPlayer() {
     var ser = this;
     this.getOnePlayer(this.currentPlayer).subscribe((data: any) => {
       ser.player = data.player;

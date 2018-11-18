@@ -1,8 +1,19 @@
 <div>
     <mat-toolbar>
-        <button type="button" mat-button (click)="toggleNavigation(sidenav)">
-            <mat-icon>menu</mat-icon>
-        </button>
+        <mat-toolbar-row>
+            <button type="button" mat-button (click)="toggleNavigation(sidenav)">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>
+                {{ title.getTitle() }}
+            </span>
+            <span class="spacer"></span>
+            <span>
+                {{ 
+                    back.player.username
+                 }}
+            </span>
+        </mat-toolbar-row>
     </mat-toolbar>
     <mat-sidenav-container class="all-wrap" fullscreen>
         <mat-sidenav #sidenav [mode]="sidenavMode" opened>

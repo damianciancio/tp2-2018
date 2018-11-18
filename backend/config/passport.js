@@ -24,7 +24,7 @@ passport.use(
                         message: "Contraseña incorrecta"
                     });
                 }
-
+                
                 return done(null, user);
             })          
         }

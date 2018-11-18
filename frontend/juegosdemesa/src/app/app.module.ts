@@ -28,15 +28,24 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 const appRoutes: Routes = [
   {
     path: 'groups/:id',
-    component: GroupDetailsComponent
+    component: GroupDetailsComponent,
+    data: {
+      title: "Grupo"
+    }
   },
   {
     path: 'groups',
-    component: GroupsListComponent
+    component: GroupsListComponent,
+    data: {
+      title: "Mis grupos"
+    }
   },
   {
     path: '', 
-    component: AppComponent
+    component: AppComponent,
+    data: {
+      title: "Inicio"
+    }
   }
 ];
 

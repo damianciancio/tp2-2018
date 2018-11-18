@@ -5,3 +5,7 @@
 .all-wrap {
     top: 65px !important;
 }
+
+.spacer {
+    flex: 1 1 auto;
+}

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var router = require('express').Router();
+var passport = require('passport');
 var Group = mongoose.model('group');
 var Player = mongoose.model('player');
 

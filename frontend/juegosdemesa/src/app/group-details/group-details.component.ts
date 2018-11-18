@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BackendServiceService } from './../../services/backendService/backend-service.service';
 import {ConfirmModalComponent} from './../modals/confirm-modal/confirm-modal.component';
 import { MatDialog, MatDialogConfig, MatList, MatListItem, MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatIcon, MatButton } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class GroupDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private back : BackendServiceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private title: Title
   ) { }
 
   ngOnInit() {
@@ -24,6 +26,7 @@ export class GroupDetailsComponent implements OnInit {
     var idGroup = this.route.snapshot.params.id;
     this.back.getOneGroup(idGroup).subscribe((group: any) => {
       component.group = group.group;
+      component.title.setTitle(component.group.name);
     });
   }
 
