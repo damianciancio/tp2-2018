@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserXhr} from '@angular/http';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './../services/authenticationService/interceptor/authentication.interceptor';
+
 import { AppComponent } from './app.component';
 import { GroupsListComponent } from './groups-list/groups-list.component';
 import { GroupPreviewComponent } from './group-preview/group-preview.component';
@@ -79,7 +82,14 @@ const appRoutes: Routes = [
     MatInputModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmModalComponent]
 })

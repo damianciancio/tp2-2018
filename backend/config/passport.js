@@ -3,6 +3,14 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var Player = mongoose.model('player');
 
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
 passport.use(
     new LocalStrategy(
         {

@@ -3,13 +3,13 @@ var router = require('express').Router();
 var Player = mongoose.model('player');
 var passport = require('passport');
 
-/* 
+ /*
 router.post('/login', 
     passport.authenticate('local', { failureRedirect: '/login' }),
     function(req, res) {
         res.redirect('/');
     }
-); */
+);*/
 
 
 router.post("/login", function(req, res, next){
@@ -37,7 +37,7 @@ router.post("/login", function(req, res, next){
             }
         })(req, res);
     })
-});
+}); 
 
 
 

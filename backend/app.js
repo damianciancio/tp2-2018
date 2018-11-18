@@ -34,9 +34,11 @@ require('./models/groups.js');
 require('./models/plays.js');
 require('./models/games.js');
 require('./models/players.js');
+
 require('./config/passport');
 
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(require('./routes'));
 

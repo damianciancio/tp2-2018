@@ -8,7 +8,7 @@
                 {{ title.getTitle() }}
             </span>
             <span class="spacer"></span>
-            <span>
+            <span *ngIf="back.player">
                 {{ 
                     back.player.username
                  }}
