@@ -3,21 +3,22 @@ var router = require('express').Router();
 var Player = mongoose.model('player');
 var passport = require('passport');
 
-
+/* 
 router.post('/login', 
     passport.authenticate('local', { failureRedirect: '/login' }),
     function(req, res) {
         res.redirect('/');
     }
-);
+); */
 
 
 router.post("/login", function(req, res, next){
     Player.findOne({username: req.body.username})
     .then(function(user){
-
+        console.log(user);
         passport.authenticate('local', function(err, user, info){
             var token;
+            console.log(err);
             if (err) {
                 res.status(404).json(err);
                 return;
@@ -37,3 +38,7 @@ router.post("/login", function(req, res, next){
         })(req, res);
     })
 });
+
+
+
+module.exports = router;

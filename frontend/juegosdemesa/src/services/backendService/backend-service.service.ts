@@ -71,4 +71,10 @@ export class BackendServiceService {
 
     return member.is_admin;
   }
+
+  login(username, password) {
+    var params = new HttpParams().set(
+      'username', username).set("password", password);
+    return this.http.post('/backend/api/register/login', params.toString());
+  }
 }

@@ -13,19 +13,19 @@ passport.use(
                     return done(err);
                 }
 
-                if(!user){
+                if(!player){
                     return done(null, false, {
                         message: "Usuario no encontrado"
                     });
                 }
 
-                if(!user.validPassword(password)){
+                if(!player.validPassword(password)){
                     return done(null, false, {
                         message: "Contraseña incorrecta"
                     });
                 }
                 
-                return done(null, user);
+                return done(null, player);
             })          
         }
     )

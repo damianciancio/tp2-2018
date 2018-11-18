@@ -19,11 +19,14 @@ import {
   MatCardModule, 
   MatIconModule,
   MatSidenavModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatInputModule
 } from '@angular/material';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
 import { DeviceDetectorModule } from 'ngx-device-detector';
+
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   {
@@ -41,10 +44,10 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: '', 
-    component: AppComponent,
+    path: 'login', 
+    component: LoginComponent,
     data: {
-      title: "Inicio"
+      title: "Iniciar sesión"
     }
   }
 ];
@@ -72,7 +75,9 @@ const appRoutes: Routes = [
     MatIconModule,
     MatSidenavModule,
     MatToolbarModule,
-    DeviceDetectorModule.forRoot()
+    DeviceDetectorModule.forRoot(),
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
