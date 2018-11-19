@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     var app = this;
     this.auth.login(this.user, this.password).subscribe((data:any) => {
       if(data){
-        app.auth.setToken(data.token);
         app.router.navigateByUrl("/groups");
       }
     });

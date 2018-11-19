@@ -31,20 +31,24 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 
 import { FormsModule } from '@angular/forms';
 
+import { AuthenticationService } from './../services/authenticationService/authentication.service';
+
 const appRoutes: Routes = [
   {
     path: 'groups/:id',
     component: GroupDetailsComponent,
     data: {
       title: "Grupo"
-    }
+    },
+    canActivate: [AuthenticationService]
   },
   {
     path: 'groups',
     component: GroupsListComponent,
     data: {
       title: "Mis grupos"
-    }
+    },
+    canActivate: [AuthenticationService]
   },
   {
     path: 'login', 

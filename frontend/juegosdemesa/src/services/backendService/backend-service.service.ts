@@ -1,12 +1,16 @@
 import { Injectable, OnInit } from '@angular/core';
 import environment from './../../environments/environment';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { AuthenticationService } from '../authenticationService/authentication.service';
 @Injectable({
   providedIn: 'root'
 })
 export class BackendServiceService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private auth: AuthenticationService
+  ) {
 
   }
   currentPlayer = "5bb8b484e63f55188eb7e11b";
@@ -51,19 +55,12 @@ export class BackendServiceService {
 
   isCurrentPlayerAdmin(group) {
     var ser = this;
-    console.log(ser.player);
-//    let member = group.members.find(member => {
-//      if(member.player._id == ser.player._id){
-//        return true;
-//      }
-//      return false;
-//    });
     let member = group.members.find(member => {
       let pid = member.player;
       if(typeof member.player != "string"){
         pid = member.player._id;
       }
-      if(pid == ser.currentPlayer){
+      if(pid == ser.auth.getUserId()){
         return true;
       }
       return false;

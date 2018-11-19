@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { BackendServiceService } from '../backendService/backend-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthenticationService implements CanActivate {
 
   constructor(private http : HttpClient, private router: Router){
    }
@@ -65,7 +65,20 @@ export class AuthenticationService {
     var params = new HttpParams().set(
       'username', username).set("password", password);
     var app = this;
-    return this.http.post('/backend/api/register/login', params);
+    let promise = this.http.post('/backend/api/register/login', params);
+    promise.subscribe((data: any) => {
+      app.setToken(data.token);
+    });
+    return promise;
+  }
+
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if(this.isLoggedIn()){
+      return true;
+    }
+    this.router.navigate(['/login']);
+    return false;
   }
 
 }

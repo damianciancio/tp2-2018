@@ -4,6 +4,7 @@ import { BackendServiceService } from './../../services/backendService/backend-s
 import {ConfirmModalComponent} from './../modals/confirm-modal/confirm-modal.component';
 import { MatDialog, MatDialogConfig, MatList, MatListItem, MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatIcon, MatButton } from '@angular/material';
 import { Title } from '@angular/platform-browser';
+import { AuthenticationService } from '../../services/authenticationService/authentication.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class GroupDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private back : BackendServiceService,
     private dialog: MatDialog,
-    private title: Title
+    private title: Title,
+    private auth: AuthenticationService
   ) { }
 
   ngOnInit() {
