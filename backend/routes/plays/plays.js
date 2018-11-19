@@ -15,7 +15,8 @@ router.post('/', (req, res, next) => {
         "game": req.body.game
     };
     let play = new Play(playObj);
-    play.save();
+    play.save()
+    .catch(next);
     res.send(play);    
 });
 
@@ -25,7 +26,8 @@ router.get('/', (req, res, next) => {
     .populate('game')
     .then(plays => {
         res.send(plays);
-    });  
+    }).catch(next);
+    ;  
 });
 
 module.exports = router;

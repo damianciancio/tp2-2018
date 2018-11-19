@@ -21,7 +21,7 @@ router.get('/:id', (req, res, next) => {
     Group.findById(id)
     .populate('members.player')
     .then(group =>{
-        if(!group){ return res.sendStatus(401); }
+        if(!group){ return res.sendStatus(404); }
         return res.json({'group': group})
     })
     .catch(next);
@@ -127,7 +127,8 @@ router.post('/:id/members', (req, res, next) => {
             group.members.push(newMember);
             group.save();
         });
-    });
+    })
+    .catch(next);
 
     res.send(true);    
 });
@@ -150,7 +151,7 @@ router.put('/:id/members/:idmember', (req, res, next) => {
             member.status = newStatus;
             group.save();
         }
-    });
+    }).catch(next);
 
     res.send(true);    
 });

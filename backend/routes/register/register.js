@@ -36,7 +36,7 @@ router.post("/login", function(req, res, next){
                 res.status(401).json(info);
             }
         })(req, res);
-    })
+    });
 }); 
 
 

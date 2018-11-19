@@ -89,7 +89,9 @@ router.post('/:id/games', (req, res, next) => {
     Play.findById(id)
     .then((player) => {
         player.games.push(game);
-    });
+        player.save();
+    })
+    .catch(next);
 });
 
 router.post('/setpasswords', (req, res, next) => {
@@ -100,6 +102,7 @@ router.post('/setpasswords', (req, res, next) => {
             player.save();
         });
     })
+    .catch(next);
 });
 
 
