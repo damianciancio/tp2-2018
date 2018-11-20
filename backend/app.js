@@ -8,6 +8,7 @@ var app            = express();
 var originsWitheList = [
   "*"
 ]
+var listEndpoints = require('express-list-endpoints');
 
 var corsOptions = {
   origin: 
@@ -36,7 +37,9 @@ require('./models/games.js');
 require('./models/players.js');
 
 require('./config/passport');
-
+app.get("/endpoints", function(req, res, next) {
+  res.send(listEndpoints(app));
+})
 app.use(passport.initialize());
 app.use(passport.session());
 

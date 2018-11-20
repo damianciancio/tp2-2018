@@ -67,3 +67,82 @@ En la misma deberán indicar: fecha de la reunión, asistentes y por cada asiste
 La entrega final deberá hacerse enviando por email a los profesores la URL del repositorio de git. La fecha límite de entrega es dos días antes del cierre de regularidades, la misma debe incluir el código del trabajo y una defensa del mismo la cual debe haber sido pactada con anterioridad según la disponibilidad de los docente.
 
 El archivo readme.md deberá ser modificado y deberá agregarse al final el tema del trabajo práctico y alcance pactado con el docente, el trabajo, año de cursado e integrantes (legajo, nombre y apellido).
+
+
+# Tema: Juegos de mesa
+La idea sería que cada usuario cargue los juegos que tenga.
+
+Que se puedan armar grupos de usuarios.
+
+Que se puedan cargar partidas (cualquiera del grupo), con el puntaje de cada uno, quien fue el ganador/es
+
+Mostrar estadísticas del grupo
+
+Comentarios en las partidas
+
+Elección de juego al azar (según nro de jugadores y tiempo disponible para la partida)
+
+Elección de juego en función de: tiempo transcurrido desde su última partida, puntuación de los usuarios, noción de rejugabilidad por parte de los miembros del grupo
+
+Hay un admin del grupo que puede agregar/eliminar miembros.
+
+Puede haber más de uno
+
+Requerimientos:
+
+- Cada usuario debería poder gestionar sus juegos de mesa.
+ - Cada usuario podría formar un grupo (o muchos grupos) de juegos con otros usuarios y gestionarlo. Las acciones de baja y alta de usuarios al grupo son potestad de los administradores del grupo.
+ - El usuario creador sería el administrador, teniendo la posibilidad de nombrar más personas para que lo sean. (para promoción, para regularidad devolver un link para unirse al grupo)
+ - Cada usuario puede cargar partidas para un grupo determinado (ya sea un grupo al que pertenezca o un grupo creado en el momento (dar la posibilidad de formar un grupo de juegos obteniendo el resultado del punto anterior, pero que esto no pase por defecto). (invitado promoción)
+ - Cada usuario puede ver las partidas en las que jugó y comentarlas, generando notificaciones para el resto de los usuarios. (comentarios y notificaciones promoción)
+
+##Alcance del tp en endpoints:
+
+Reunión con Adrián.
+Definimos los endpoints y el frontend para la regularidad:
+
+frontend:
+
+listar grupos y aceptar solicitudes pendientes
+Endpoints regularidad
+ABM usuarios
+GET /api/player/ ok
+GET /api/player/:id ok
+POST /api/player/ ok
+*PUT /api/player/:id 
+*DELETE /api/player/:id
+
+ABM Grupos
+GET /api/groups/:id ok
+POST /api/groups/ ok
+*PUT /api/groups/:id
+*DELETE /api/groups/:id
+
+Obtener grupos a los cuales pertenezco
+GET /api/player/:id/groups ok
+
+Obtener grupos de los cuales soy admin
+GET /api/player/:id/groups?admin=true  ok
+
+Aceptar un miembro
+GET /api/groups ok
+GET /api/groups/:id/members (listar) ok
+GET /api/groups/:id/members?status=pending ok (miembros pendientes)
+POST /api/groups/:idgroup/members/ ok (añadir miembros)
+PUT /api/groups/:id/members/:idmember ok (aceptar un miembro)
+
+** ver partidas y juegos
+Partidas de un usuario
+GET /api/player/:id/plays/ ok
+GET /api/games/:id 
+POST /api/player/:id/games/ ok
+PUT /api/player/:id/games/
+DELETE /api/games/:id
+
+Agregar una partida
+POST /api/plays/ ok
+
+Los * no son necesarios para regularizar,
+Los ** ver cómo llegamos con los demás y ahí vemos si es necesario hacer esto o no para regularidad
+
+En este momento están todos los ítems solicitados para regularizar más tres endpoints que estaban en duda. (los de los dos **)
