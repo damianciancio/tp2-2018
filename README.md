@@ -107,39 +107,66 @@ listar grupos y aceptar solicitudes pendientes
 Endpoints regularidad
 ABM usuarios
 GET /api/player/ ok
+
 GET /api/player/:id ok
+
 POST /api/player/ ok
-*PUT /api/player/:id 
+
+*PUT /api/player/:id
+
 *DELETE /api/player/:id
 
+
 ABM Grupos
+
 GET /api/groups/:id ok
+
 POST /api/groups/ ok
+
 *PUT /api/groups/:id
+
 *DELETE /api/groups/:id
 
 Obtener grupos a los cuales pertenezco
+
 GET /api/player/:id/groups ok
 
+
 Obtener grupos de los cuales soy admin
+
 GET /api/player/:id/groups?admin=true  ok
 
+
 Aceptar un miembro
+
 GET /api/groups ok
+
 GET /api/groups/:id/members (listar) ok
+
 GET /api/groups/:id/members?status=pending ok (miembros pendientes)
+
 POST /api/groups/:idgroup/members/ ok (añadir miembros)
+
 PUT /api/groups/:id/members/:idmember ok (aceptar un miembro)
 
+
 ** ver partidas y juegos
+
 Partidas de un usuario
+
 GET /api/player/:id/plays/ ok
+
 GET /api/games/:id 
+
 POST /api/player/:id/games/ ok
+
 PUT /api/player/:id/games/
+
 DELETE /api/games/:id
 
+
 Agregar una partida
+
 POST /api/plays/ ok
 
 Los * no son necesarios para regularizar,
