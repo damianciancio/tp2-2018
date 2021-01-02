@@ -1,12 +1,14 @@
 var express        = require('express');
-var mongoose    = require('mongoose');
+var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var cors           = require('cors');
 var methodOverride = require('method-override');
 var passport = require('passport');
 var app            = express();
 var originsWitheList = [
-  "*"
+  "*",
+  "http://localhost:8080",
+  "http://localhost:4200"
 ]
 var listEndpoints = require('express-list-endpoints');
 
@@ -17,11 +19,13 @@ var corsOptions = {
         console.log(origin);
       }
       var isWitheListed = originsWitheList.indexOf(origin) !== -1;
+      console.log(isWitheListed)
       callback(null, isWitheListed);
     },
     credentials: true
-}
-app.use(cors(corsOptions));
+  }
+  app.use(cors(corsOptions));
+  
 
 const port = 3000;
 
@@ -47,8 +51,17 @@ app.use(require('./routes'));
 
 var router=express.Router();
 
+// Your own super cool function
+var logger = function(req, res, next) {
+  next(req, res); // Passing the request to the next handler in the stack.
+}
 
+  app.use(logger); // Here you add your logger to the stack.
 app.use(router);
+app.use(function (err, req, res, next) {
+  console.error(err);
+  next();
+})
 
 app.listen(port, () => {
   console.log('We are live on ' + port);

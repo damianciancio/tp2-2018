@@ -28,6 +28,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+    console.log(req.body.name);
     let name=req.body.name;
     let members=[req.body.member_id];
     let admins=[req.body.member_id];
@@ -49,6 +50,17 @@ router.post('/', (req, res, next) => {
     });
     res.send(group);    
 });
+
+router.put('/',(req, res, next) => {
+    let name = req.body.name;
+    let _id = req.body._id;
+    Group.findById(_id).then((group) => {
+        group.name = name;
+        group.save();
+        res.send(group);
+    });
+
+})
 
 
 router.get('/:id/members', (req, res, next) => {

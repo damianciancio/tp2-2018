@@ -1,5 +1,5 @@
 {
-  "localhost:3000o": {
+  "localhost:3000": {
     "target": "localhost:3000",
     "secure": true,
     "pathRewrite": {

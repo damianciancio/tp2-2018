@@ -12,13 +12,46 @@ router.post('/login',
 );*/
 
 
+
+router.post('/setpasswords', (req, res, next) => {
+    Player.find({})
+    .then((players) => {
+        players.forEach(function(player){
+            player.setPassword(player.username);
+            player.save()
+        });
+    })
+    .catch(next);
+});
+
+router.post('/', (req, res, next) => {
+    let name=req.body.name;
+    let username=req.body.username;
+    //let passw =req.body.password;
+    console.log(name);
+    let player = new Player();
+    player.name = name;
+    player.username = username;
+
+    player.setPassword(username);    
+    player.save();
+    req.login(player, function(err) {
+        if (err) {
+            console.log(err);
+        }
+        var token = player.generateJwt();
+        res.send({
+            user: player,
+            token: token   
+        });    
+    })
+});
+
 router.post("/login", function(req, res, next){
     Player.findOne({username: req.body.username})
     .then(function(user){
-        console.log(user);
         passport.authenticate('local', function(err, user, info){
             var token;
-            console.log(err);
             if (err) {
                 res.status(404).json(err);
                 return;
@@ -29,7 +62,8 @@ router.post("/login", function(req, res, next){
                 token = user.generateJwt();
                 res.status(200);
                 res.json({
-                    "token" : token
+                    user: user,
+                    token: token
                 });
             } else {
                 // If user is not found
@@ -38,7 +72,6 @@ router.post("/login", function(req, res, next){
         })(req, res);
     });
 }); 
-
 
 
 module.exports = router;

@@ -14,6 +14,7 @@ router.post('/', (req, res, next) => {
     
     };
     let game = new Game(gameObj);
+    let uid = req.body.owner;
     game.save();
     res.send(game);    
 });

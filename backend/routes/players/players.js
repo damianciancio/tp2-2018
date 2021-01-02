@@ -55,21 +55,6 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/', (req, res, next) => {
-    let name=req.body.name;
-    let username=req.body.username;
-
-    console.log(req);
-
-    let playerObj = {
-        "name": name,
-        "username": username,
-    };
-    let player = new Player(playerObj);
-    player.save();
-    res.send(player);    
-});
-
 
 
 router.get('/:id/plays', (req, res, next) => {
@@ -90,17 +75,6 @@ router.post('/:id/games', (req, res, next) => {
     .then((player) => {
         player.games.push(game);
         player.save();
-    })
-    .catch(next);
-});
-
-router.post('/setpasswords', (req, res, next) => {
-    Player.find({})
-    .then((players) => {
-        players.forEach(function(player){
-            player.setPassword(player.username);
-            player.save();
-        });
     })
     .catch(next);
 });
