@@ -14,6 +14,7 @@ import { AuthenticationService } from '../../services/authenticationService/auth
 })
 export class GroupDetailsComponent implements OnInit {
   group : any;
+  isGroupAdmin: boolean;
   constructor(
     private route: ActivatedRoute,
     private back : BackendServiceService,
@@ -29,7 +30,8 @@ export class GroupDetailsComponent implements OnInit {
     this.back.getOneGroup(idGroup).subscribe((group: any) => {
       component.group = group.group;
       component.title.setTitle(component.group.name);
-    });
+      this.isGroupAdmin = this.back.isCurrentPlayerAdmin(this.group);      
+    });    
   }
 
   acceptMember(member) {

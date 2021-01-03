@@ -1,0 +1,18 @@
+<mat-card class="group-form">
+  <mat-card-header>
+    <mat-card-title>
+      Crear grupo
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form >
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Nombre" name="name" [(ngModel)]="group.name">
+      </mat-form-field>
+      <button mat-raised-button color="primary" id="btn-create" (click)="createGroup()">Guardar</button>
+
+        <player-search></player-search>
+    
+    </form>
+  </mat-card-content>
+</mat-card>

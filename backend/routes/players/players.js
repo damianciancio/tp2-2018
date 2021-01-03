@@ -68,10 +68,20 @@ router.get('/:id/plays', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/:id/games', (req, res, next) => {
+    let id = req.params.id;
+    Player.findById(id)
+    .populate('games')
+    .then(player =>{
+        if(!player){ return res.sendStatus(404); }
+        return res.json({'games': player.games})
+    })
+    .catch(next);
+});
 router.post('/:id/games', (req, res, next) => {
     let id = req.params.id;
     let game = req.body.game;
-    Play.findById(id)
+    Player.findById(id)
     .then((player) => {
         player.games.push(game);
         player.save();

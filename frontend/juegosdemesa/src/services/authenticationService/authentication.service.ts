@@ -9,20 +9,17 @@ import { BackendServiceService } from '../backendService/backend-service.service
 export class AuthenticationService implements CanActivate {
 
   constructor(private http : HttpClient, private router: Router){
-   }
+  }
+  
   private token : String;
 
   setToken(token) {
     localStorage.setItem("juegosmesa-jwt", token);
-    this.token = token;
   }
 
   getToken() {
-    if(!this.token){
-      this.token = localStorage.getItem("juegosmesa-jwt");
-    }
+    return localStorage.getItem("juegosmesa-jwt");
 
-    return this.token;
   }
 
   logout() {

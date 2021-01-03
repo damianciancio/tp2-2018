@@ -1,6 +1,7 @@
 var mongoose =require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+const SECRET_KEY = "clavesecreta";
 
 var playerSchema= new mongoose.Schema({
   name: {type: String, required: true},
@@ -28,7 +29,17 @@ playerSchema.methods.generateJwt = function() {
     _id: this._id,
     username: this.username,
     exp: parseInt(expiry.getTime() / 1000)
-  }, "clavesecreta"); // TODO: setear esta variable como variable de entorno
+  }, SECRET_KEY); // TODO: setear esta variable como variable de entorno
 }
+
+playerSchema.statics.current = async function(token) {
+  let data = jwt.decode(token, SECRET_KEY)
+  if (data) {
+    let user = await this.findById(data._id);
+    return user;
+  }
+  return null;
+}
+
 
 mongoose.model('player', playerSchema);

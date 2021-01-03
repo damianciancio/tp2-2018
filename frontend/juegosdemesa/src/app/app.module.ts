@@ -32,8 +32,24 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { FormsModule } from '@angular/forms';
 
 import { AuthenticationService } from './../services/authenticationService/authentication.service';
+import { GroupFormComponent } from './group-form/group-form.component';
+import { PlayerSearchComponent } from './player-search/player-search.component';
 
 const appRoutes: Routes = [
+  {
+    path: 'groups/new', 
+    component: GroupFormComponent,
+    data: {
+      title: "Crear grupo"
+    }
+  },
+  {
+    path: 'groups/:id/edit', 
+    component: GroupFormComponent,
+    data: {
+      title: "Editar grupo"
+    }
+  },
   {
     path: 'groups/:id',
     component: GroupDetailsComponent,
@@ -67,7 +83,9 @@ const appRoutes: Routes = [
     GroupDetailsComponent,
     LoginComponent,
     AcceptedMembersPipe,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    GroupFormComponent,
+    PlayerSearchComponent
   ],
   imports: [
     BrowserModule,

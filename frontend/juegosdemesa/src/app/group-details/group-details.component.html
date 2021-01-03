@@ -18,5 +18,8 @@
           </mat-list-item>
         </mat-list>
       </mat-card-content>
-    </mat-card>    
+    </mat-card>   
+    <a *ngIf="isGroupAdmin" [routerLink]="['edit']" >
+      Editar
+    </a> 
 </div>

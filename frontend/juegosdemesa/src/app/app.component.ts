@@ -18,9 +18,6 @@ export class AppComponent {
   showMenuButton = false;
   sidenavMode = "side";
   ngOnInit(){
-    this.back.getOnePlayer("5bb8b484e63f55188eb7e11b").subscribe((data: any) =>{
-      console.log(data);
-    });
 
     this.back.setCurrentPlayer();
 

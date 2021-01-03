@@ -39,6 +39,8 @@ export class BackendServiceService {
     return this.http.get('/backend/api/players/'+id+'/groups?admin=true');
   }
 
+  // Groups
+
   getGroupMembers(id) {
     return this.http.get('/backend/api/groups/'+id+'/members');
   }
@@ -46,6 +48,15 @@ export class BackendServiceService {
   getOneGroup(id) {
     return this.http.get('/backend/api/groups/'+id);
   }
+
+  createGroup(group) {
+    return this.http.post('/backend/api/groups', {name: group.name, member_id: this.auth.getUserId()});
+  }
+
+  editGroup(group) {
+    return this.http.put('/backend/api/groups', {name: group.name, _id: group._id});
+  }
+
 
   acceptGroupMember(idGroup, idMember) {
     var params = new HttpParams().set(
