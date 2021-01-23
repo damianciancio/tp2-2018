@@ -30,11 +30,13 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', (req, res, next) => {
     let query = req.query['q'];
-    if (query && typeof query == 'string') {   
-        Game.find({ name: { $regex: query, '$options': 'i' } }).then(games => {
-            res.send(games);
-        });
+    let queryObject = {};
+    if (query && typeof query == 'string') {
+        queryObject = { name: { $regex: query, '$options': 'i' } };   
     }
+    Game.find(queryObject).then(games => {
+        res.send(games);
+    });
 });
 
 module.exports = router;
