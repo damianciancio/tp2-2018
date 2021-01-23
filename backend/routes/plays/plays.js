@@ -23,12 +23,17 @@ router.post('/', (req, res, next) => {
 
 
 router.get('/', (req, res, next) => {
-    Play.find({})
+    let findObject = {};
+    if (req.params.group_id) {
+        findObject = {group: mongoose.Types.ObjectId(group_id)};
+    }
+    Play.find(findObject)
     .populate('game')
+    .populate('players')
     .then(plays => {
         res.send(plays);
     }).catch(next);
-    ;  
+      
 });
 
 
