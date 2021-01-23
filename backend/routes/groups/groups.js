@@ -8,7 +8,13 @@ var Player = mongoose.model('player');
 var ObjectId = mongoose.Types.ObjectId;
 
 router.get('/', (req, res, next) => {
-    Group.find({})
+    let query = req.query['q'];
+    let findObj = {};
+    if (query && typeof query == 'string') {   
+        findObj = { name: { $regex: query, '$options': 'i' } }
+    }
+
+    Group.find(findObj)
     .then(groups =>{
         if(!groups){ return res.sendStatus(401); }
         return res.json({'groups': groups})
@@ -27,17 +33,23 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
     console.log(req.body.name);
+    
     let name=req.body.name;
-    let members=[req.body.member_id];
-    let admins=[req.body.member_id];
+    let token = req.headers['token'];
+
+    let currentUser = await Player.current(token);
+    let admin = req.body.member_id;
+    if (!admin) {
+        admin = currentUser._id;
+    }
 
     let groupObj = {
         "name": name,
         "members": [
             {
-                "player": req.body.member_id,
+                "player": admin,
                 "is_admin": true,
                 "status": "accepted"
             }
