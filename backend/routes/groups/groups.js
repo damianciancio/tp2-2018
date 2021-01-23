@@ -139,6 +139,12 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/:id/members', (req, res, next) => {
     var groupId = req.params.id;
+
+    let initial_status = "pending";
+    if (req.body.initial_status) {
+        initial_status = req.body.initial_status;
+    }
+
     Group.findById(groupId)
     .then(group => {
         Player.findById(req.body.member_id)
@@ -146,7 +152,7 @@ router.post('/:id/members', (req, res, next) => {
             var newMember = {
                 "player": player,
                 "is_admin": false,
-                "status": "pending"
+                "status": initial_status
             };
             group.members.push(newMember);
             group.save();
