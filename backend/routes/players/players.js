@@ -7,7 +7,15 @@ var Play = mongoose.model('play');
 var ObjectId = mongoose.Types.ObjectId;
 
 router.get('/', (req, res, next) => {
-    Player.find({})
+
+    let query = req.query['q'];
+    let queryObject = {};
+    if (query && typeof query == 'string') {
+        queryObject = { username: { $regex: query, '$options': 'i' } };   
+    }
+
+
+    Player.find(queryObject)
     .then(players =>{
         if(!players){ return res.sendStatus(401); }
         return res.json({'players': players})
