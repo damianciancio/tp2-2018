@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var router = require('express').Router();
 var Play = mongoose.model('play');
+var Player = mongoose.model('player');
 
 router.post('/', (req, res, next) => {
     
@@ -24,6 +25,22 @@ router.post('/', (req, res, next) => {
 router.get('/', (req, res, next) => {
     Play.find({})
     .populate('game')
+    .then(plays => {
+        res.send(plays);
+    }).catch(next);
+    ;  
+});
+
+
+
+router.get('/my-plays', async (req, res, next) => {
+
+    let token = req.headers['token'];
+    let currentUser = await Player.current(token);
+
+    Play.find({players: mongoose.Types.ObjectId(currentUser._id)})
+    .populate('game')
+    .populate('players')
     .then(plays => {
         res.send(plays);
     }).catch(next);
