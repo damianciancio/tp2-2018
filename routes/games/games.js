@@ -20,8 +20,7 @@ router.post('/', async (req, res, next) => {
     game.save();
     
     if (req.body.add_to_library) {
-        let token = req.headers['token'];
-        let currentUser = await Player.current(token);
+        let currentUser = res.locals.currentUser
         currentUser.games.push(game);
         currentUser.save();
     }

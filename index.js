@@ -8,7 +8,8 @@ var app            = express();
 var originsWitheList = [
   "*",
   "http://localhost:8080",
-  "http://localhost:4200"
+  "http://localhost:4200",
+  "http://localhost:1024"
 ]
 var listEndpoints = require('express-list-endpoints');
 
@@ -49,19 +50,15 @@ app.use(passport.session());
 
 app.use(require('./routes'));
 
-var router=express.Router();
+var router = express.Router();
 
-// Your own super cool function
-var logger = function(req, res, next) {
-  next(req, res); // Passing the request to the next handler in the stack.
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + '/public/'));
+
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
 
-  app.use(logger); // Here you add your logger to the stack.
 app.use(router);
-app.use(function (err, req, res, next) {
-  console.error(err);
-  next();
-})
 
 app.listen(port, () => {
   console.log('We are live on ' + port);

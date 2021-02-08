@@ -97,5 +97,9 @@ router.post('/:id/games', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/current-user', function(req, res, next) {
+    return res.send({'user': res.locals.currentUser});
+})
+
 
 module.exports = router;

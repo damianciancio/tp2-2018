@@ -37,9 +37,8 @@ router.post('/', async (req, res, next) => {
     console.log(req.body.name);
     
     let name=req.body.name;
-    let token = req.headers['token'];
 
-    let currentUser = await Player.current(token);
+    let currentUser = res.locals.currentUser
     let admin = req.body.member_id;
     if (!admin) {
         admin = currentUser._id;

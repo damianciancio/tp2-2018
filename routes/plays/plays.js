@@ -24,8 +24,7 @@ router.post('/', (req, res, next) => {
 
 router.post('/:id/comment', async (req, res, next) => {
     
-    let token = req.headers['token'];
-    let currentUser = await Player.current(token);
+    let currentUser = res.locals.currentUser
     let user_id = currentUser._id;
 
     Play.findById(req.params.id)
@@ -64,8 +63,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/my-plays', async (req, res, next) => {
 
-    let token = req.headers['token'];
-    let currentUser = await Player.current(token);
+    let currentUser = res.locals.currentUser;
     
     Play.find({players: mongoose.Types.ObjectId(currentUser._id)})
     .populate('game')
