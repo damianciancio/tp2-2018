@@ -4,7 +4,8 @@
   "description": "Aplicacion para administrar las partidas de juegos de mesa entre grupos de juegos.",
   "main": "index.js",
   "scripts": {
-    "test": "test-app"
+    "test": "test-app",
+    "start": "node index.js" 
   },
   "keywords": [
     "juegos",
