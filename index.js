@@ -34,10 +34,11 @@ var corsOptions = {
   app.use(bodyParser.json());
   app.use(methodOverride());
   
+  let url = "";
   if (process.env.NODE_ENV === 'production') {
-    let url = "mongodb+srv://boardgamesapi:ed1Bcr8C4yuYt4lC@cluster0.tztxy.mongodb.net/juegosdemesa?retryWrites=true&w=majority";
+    url = "mongodb+srv://boardgamesapi:ed1Bcr8C4yuYt4lC@cluster0.tztxy.mongodb.net/juegosdemesa?retryWrites=true&w=majority";
   } else {
-    let url = 'mongodb://localhost/juegosdemesa';
+    url = 'mongodb://localhost/juegosdemesa';
   }
 mongoose.connect(url);
 require('./models/players.js');
