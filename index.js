@@ -36,11 +36,12 @@ var corsOptions = {
   
   let url = "";
   if (process.env.NODE_ENV === 'production') {
-    url = "mongodb://boardgamesapi:ed1Bcr8C4yuYt4lC@cluster0.tztxy.mongodb.net/juegosdemesa?retryWrites=true&w=majority";
+    url = "mongodb://boardgamesapi:ed1Bcr8C4yuYt4lC@cluster0-shard-00-00.tztxy.mongodb.net:27017,cluster0-shard-00-01.tztxy.mongodb.net:27017,cluster0-shard-00-02.tztxy.mongodb.net:27017/juegosdemesa?ssl=true&replicaSet=atlas-12mgs3-shard-0&authSource=admin&retryWrites=true&w=majority";
   } else {
     url = 'mongodb://localhost/juegosdemesa';
   }
-mongoose.connect(url);
+
+  mongoose.connect(url);
 require('./models/players.js');
 require('./models/groups.js');
 require('./models/plays.js');
