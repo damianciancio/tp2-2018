@@ -36,7 +36,7 @@ var corsOptions = {
   
   let url = "";
   if (process.env.NODE_ENV === 'production') {
-    url = "mongodb+srv://boardgamesapi:ed1Bcr8C4yuYt4lC@cluster0.tztxy.mongodb.net/juegosdemesa?retryWrites=true&w=majority";
+    url = "mongodb://boardgamesapi:ed1Bcr8C4yuYt4lC@cluster0.tztxy.mongodb.net/juegosdemesa?retryWrites=true&w=majority";
   } else {
     url = 'mongodb://localhost/juegosdemesa';
   }
