@@ -27,14 +27,19 @@ var corsOptions = {
   }
   app.use(cors(corsOptions));
   
-
-const port = 3000;
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(methodOverride());
-
-mongoose.connect('mongodb://localhost/juegosdemesa');
+  
+  const port = 3000;
+  
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  app.use(methodOverride());
+  
+  if (process.env.NODE_ENV === 'production') {
+    let url = "mongodb+srv://boardgamesapi:ed1Bcr8C4yuYt4lC@cluster0.tztxy.mongodb.net/juegosdemesa?retryWrites=true&w=majority";
+  } else {
+    let url = 'mongodb://localhost/juegosdemesa';
+  }
+mongoose.connect(url);
 require('./models/players.js');
 require('./models/groups.js');
 require('./models/plays.js');
@@ -54,6 +59,7 @@ var router = express.Router();
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname + '/public/'));
+
 
   app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
