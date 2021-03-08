@@ -26,26 +26,30 @@ router.get('/', (req, res, next) => {
 router.get('/:id/groups', (req, res, next) => {
     let idUser = req.params.id;
     let admin = req.query.admin;
+    let status = req.query.status;
 
     let queryObject = { "members.player": idUser };
+    let filter = null;
+    if (admin || status) {
+        filter = (group) => {
+            let member = group.members.find(member => {
+                if(member.player._id == idUser) {
+                    return true;
+                }
+            });
 
+            if((admin && member.is_admin) || (status && member.status == status)) {
+                return true;
+            }
+            return false;
+        }
+    }
     Group.find(queryObject)
     .populate('player')
     .then(groups =>{
         if(!groups){ return res.sendStatus(401); }
-        if(admin) {
-            groups = groups.filter((group) => {
-                let member = group.members.find(member => {
-                    if(member.player._id == idUser) {
-                        return true;
-                    }
-                });
-
-                if(member.is_admin) {
-                    return true;
-                }
-                return false;
-            });
+        if(filter) {
+            groups = groups.filter(filter);
         }
         return res.json({'groups': groups})
     })
@@ -90,9 +94,17 @@ router.post('/:id/games', (req, res, next) => {
     let id = req.params.id;
     let game = req.body.game;
     Player.findById(id)
+    .populate('games')
     .then((player) => {
+
+        let duplicated = player.games.find(aGame => aGame._id == game._id);
+        if (duplicated) {
+            return res.status(403).send({code: 'user_already_has_the_game', message: 'The user already has this game in his library'})
+        }
+
         player.games.push(game);
         player.save();
+        return res.send(player);
     })
     .catch(next);
 });

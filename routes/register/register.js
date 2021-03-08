@@ -25,26 +25,37 @@ router.post('/setpasswords', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    let name=req.body.name;
-    let username=req.body.username;
-    //let passw =req.body.password;
-    console.log(name);
-    let player = new Player();
-    player.name = name;
-    player.username = username;
+    var name=req.body.name;
+    var username = req.body.username;
+    var password = req.body.password;
 
-    player.setPassword(username);    
-    player.save();
-    req.login(player, function(err) {
-        if (err) {
-            console.log(err);
+    if (username.trim() == "" || password.trim() == "" || name.trim() == "") {
+        return res.status(403).send({code: 'missing_username_or_password', message: 'You must provide username and password'});
+    }
+    
+    Player.findOne({username: username}).then(playerFound => {
+        if (playerFound) {
+            return res.status(401).send({code: 'username_already_taken', message: 'Username already taken'});
+        } else {   
+            let player = new Player();
+            player.name=req.body.name;
+            player.username = req.body.username;
+            player.password = req.body.password;
+            
+            player.setPassword(password);    
+            player.save();
+            req.login(player, function(err) {
+                if (err) {
+                    console.log(err);
+                }
+                var token = player.generateJwt();
+                res.send({
+                    user: player,
+                    token: token   
+                });    
+            })
         }
-        var token = player.generateJwt();
-        res.send({
-            user: player,
-            token: token   
-        });    
-    })
+    });
 });
 
 router.post("/login", function(req, res, next){

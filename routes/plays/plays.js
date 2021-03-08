@@ -47,8 +47,8 @@ router.post('/:id/comment', async (req, res, next) => {
 
 router.get('/', (req, res, next) => {
     let findObject = {};
-    if (req.params.group_id) {
-        findObject = {group: mongoose.Types.ObjectId(group_id)};
+    if (req.query.group_id) {
+        findObject = {group: mongoose.Types.ObjectId(req.query.group_id)};
     }
     Play.find(findObject)
     .populate('game')

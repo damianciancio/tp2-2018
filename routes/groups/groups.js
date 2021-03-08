@@ -91,35 +91,6 @@ router.get('/:id/members', (req, res, next) => {
             })
         }
         return res.json({'data': members});
-        let members_ids = group.members.map(memberElement => {
-            return memberElement.player;
-        });
-        console.log("members_ids: ",members_ids);
-        Player.find({'_id': { $in: members_ids}}).then(players =>
-            {   
-                console.log(players);
-                let members_array = [];
-                group.members.forEach(member => {
-                    //var playerFound = players.filter(player => {
-                    //    return player._id === member._id; 
-                    //});
-                    players.forEach(player => {
-                        if(player._id.equals(member.player)){
-
-                            member.player = player;
-                        }
-                    });
-                });
-                members_array = group.members;
-                if(status) {
-                    members_array = group.members.filter(member => {
-                        return member.status == status;
-                    });
-                }
-                
-                return res.json({'data': group});
-            }
-        );
         
     })
     .catch(next);
@@ -145,7 +116,25 @@ router.post('/:id/members', (req, res, next) => {
     }
 
     Group.findById(groupId)
+    .populate('members.player')
     .then(group => {
+        
+        let foundAdmin = group.members.some(member => {
+            return String(member.player._id) == String(res.locals.currentUser._id) && member.is_admin
+        });
+
+        if (!foundAdmin && initial_status != 'pending') {
+            return res.sendStatus(401);
+        }
+
+        let userAlreadyOnGroup = group.members.some(member => {
+            return member.player._id == req.body.member_id;
+        });
+
+        if (userAlreadyOnGroup) {
+            res.sendStatus(409);
+        }
+
         Player.findById(req.body.member_id)
         .then(player => {
             var newMember = {
@@ -155,11 +144,11 @@ router.post('/:id/members', (req, res, next) => {
             };
             group.members.push(newMember);
             group.save();
+            res.send(true);    
         });
     })
     .catch(next);
 
-    res.send(true);    
 });
 
 
